@@ -229,20 +229,23 @@ public class Automate extends EnsEtat {
         }
         sc.nextLine();
         sc.nextLine();
-        
+
         for(int i =0;i<nb;i++){
             String str = sc.nextLine();
-            if(str.contains("initial")) set.get(i).setInit(true);
-            if(str.contains("terminal")) set.get(i).setTerm(true);
+            String[] nombre = str.split(" ",2);
+            int NumeroEtat = Integer.parseInt(nombre[0]);
+            System.out.print(NumeroEtat);
+            if(str.contains("initial")) set.get(NumeroEtat).setInit(true);
+            if(str.contains("terminal")) set.get(NumeroEtat).setTerm(true);
             while(!str.equals("") &&  sc.hasNextLine()){
                 str = sc.nextLine();
                 String [] tab= str.split(" ");
                 for(int j =1;j<tab.length;j++){
-                    set.get(i).ajouteTransition(tab[0].charAt(0),set.get(Integer.parseInt(tab[j])));
-                    
+                    set.get(NumeroEtat).ajouteTransition(tab[0].charAt(0),set.get(Integer.parseInt(tab[j])));
+
                 }
             }
-            System.out.println(set.get(i).toString());
+            //System.out.println(set.get(i).toString());
         }
         for(Etat e : set.values()){
             this.ajouteEtatSeul(e);
@@ -323,8 +326,8 @@ public class Automate extends EnsEtat {
 	public boolean egaliteMini(Automate auto) {
 		String result1 = this.parcours();
 		String result2 = auto.parcours();
-		System.out.println(result1);
-		System.out.println(result2);
+		//System.out.println(result1);
+		//System.out.println(result2);
 		return result1.matches(result2);
 	}
     

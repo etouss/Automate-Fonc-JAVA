@@ -102,11 +102,11 @@ class Binaire extends Arbre{
 			else if(droit.symbole == '1') return gauche.simplification(language);
 			else if(gauche.contient1){
 				gauche.contient1=false;
-				return new Binaire(this,droit,'+').simplification(language);
+				if(!gauche.contientMotVide)return new Binaire(this,droit,'+').simplification(language);
 			}
 			else if(droit.contient1){
 				droit.contient1=false;
-				return new Binaire(this,gauche,'+').simplification(language);
+				if(!droit.contientMotVide)return new Binaire(this,gauche,'+').simplification(language);
 			}
 		}
 		if(language != null){

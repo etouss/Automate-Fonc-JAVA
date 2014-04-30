@@ -2,14 +2,16 @@ package TP1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Residuel {
 
 	private Arbre language;
 	private Map<Arbre, Etat> map = new HashMap<Arbre, Etat>();
-	private Stack<Couple> tmp = new Stack<>();
+	private Queue<Couple> tmp = new LinkedList<Couple>();
 	
 	
 	public Automate miniResiduel(Arbre language){
@@ -32,7 +34,7 @@ public class Residuel {
 		}
 		for(char l : lettres){
 			Arbre arbreR=arbre.residuel(l,language);
-			//System.out.println("("+l+" -1) "+arbre.toString()+" = "+arbreR.toString());
+			System.out.println("("+l+" -1) "+arbre.toString()+" = "+arbreR.toString());
 			boolean empile= true;
 			for(Arbre a : this.map.keySet()){
 				//System.out.println(a.toString().equals(arbreR.toString()));
@@ -47,11 +49,11 @@ public class Residuel {
 				Etat e = new Etat(false,arbreR.contientMotVide||arbreR.contient1,map.size());
 				etat.ajouteTransition(l,e);
 				map.put(arbreR, e);
-				if(arbreR.symbole!='1')tmp.push(new Couple(arbreR,e));
+				if(arbreR.symbole!='1')tmp.add(new Couple(arbreR,e));
 			}
 		}
-		if(!tmp.empty()){
-			Couple c = tmp.pop();
+		if(!tmp.isEmpty()){
+			Couple c = tmp.remove();
 			residuelAutomate(c.a, c.e);
 		}
 	}
