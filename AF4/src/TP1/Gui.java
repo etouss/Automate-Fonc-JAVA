@@ -23,6 +23,10 @@ public class Gui extends JPanel {
 	private JTextField expression = new JTextField();
 	private JTextArea resultat = new JTextArea();
 	
+	private JButton generer = new JButton("Generer");
+	private JTextField nbEtat = new JTextField();
+	private JTextField alphabet = new JTextField();
+	
 	private Automate automate;
 	private Arbre arbre;
 	
@@ -33,6 +37,7 @@ public class Gui extends JPanel {
 		importerExpression.addActionListener(boutonListener);
 		minimiserMoore.addActionListener(boutonListener);
 		minimiserResiduel.addActionListener(boutonListener);
+		generer.addActionListener(boutonListener);
 		
 		resultat.setSize(400, 600);
 		resultat.setMargin(new Insets(10,10,10,10) );
@@ -46,12 +51,21 @@ public class Gui extends JPanel {
         add(minimiserMoore);
         add(minimiserResiduel);
         add(expression);
+        add(generer);
+        add(nbEtat);
+        add(alphabet);
+        
+        alphabet.setText("alphabet");
+        nbEtat.setText("Nombre Etats");
         
         importerAutomate.setBounds(0,10,200,50);
         importerExpression.setBounds(0, 70, 200, 50);
         expression.setBounds(0, 130, 200, 50);
         minimiserMoore.setBounds(0, 190, 200, 50);
         minimiserResiduel.setBounds(0, 250, 200, 50);
+        generer.setBounds(0, 340, 200, 50);
+        nbEtat.setBounds(0,400,95,50);
+        alphabet.setBounds(105,400,95,50);
 	}
 
 	
@@ -106,6 +120,11 @@ public class Gui extends JPanel {
 	    	case"Minimiser Expression (Residuel)":
 	    		Residuel resi = new Residuel();
 	    		setAutomate(resi.miniResiduel(getArbre()));
+	    		setResultat(getAutomate().toString());
+	    		break;
+	    	case"Generer":
+	    		Generateur gene = new Generateur(alphabet.getText(),Integer.decode(nbEtat.getText()));
+	    		setAutomate(gene.generer());
 	    		setResultat(getAutomate().toString());
 	    		break;
 	    	}
