@@ -1,0 +1,19 @@
+5 Etats
+
+0 initial
+d 4
+
+1 terminal
+b 2
+a 3
+
+2 terminal
+b 2
+a 3
+
+3 terminal
+b 2
+a 3
+
+4
+c 1
