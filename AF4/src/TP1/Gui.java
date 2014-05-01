@@ -1,9 +1,11 @@
 package TP1;
 
+import java.util.Date;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -27,6 +29,8 @@ public class Gui extends JPanel {
 	private JTextField nbEtat = new JTextField();
 	private JTextField alphabet = new JTextField();
 	
+	private JButton sauver = new JButton("Sauvegarder");
+	
 	private Automate automate;
 	private Arbre arbre;
 	
@@ -38,6 +42,7 @@ public class Gui extends JPanel {
 		minimiserMoore.addActionListener(boutonListener);
 		minimiserResiduel.addActionListener(boutonListener);
 		generer.addActionListener(boutonListener);
+		sauver.addActionListener(boutonListener);
 		
 		resultat.setSize(400, 600);
 		resultat.setMargin(new Insets(10,10,10,10) );
@@ -54,6 +59,7 @@ public class Gui extends JPanel {
         add(generer);
         add(nbEtat);
         add(alphabet);
+        add(sauver);
         
         alphabet.setText("alphabet");
         nbEtat.setText("Nombre Etats");
@@ -66,6 +72,7 @@ public class Gui extends JPanel {
         generer.setBounds(0, 340, 200, 50);
         nbEtat.setBounds(0,400,95,50);
         alphabet.setBounds(105,400,95,50);
+        sauver.setBounds(0,490,200,50);
 	}
 
 	
@@ -127,6 +134,13 @@ public class Gui extends JPanel {
 	    		setAutomate(gene.generer());
 	    		setResultat(getAutomate().toString());
 	    		break;
+	    	case"Sauvegarder":
+	    		String pathS = this.locateDossier();
+	    		Date date = new Date();
+	    		pathS=pathS.concat("/").concat(String.valueOf(date.getTime())).concat(".automate");
+	    		//System.out.print(pathS);
+	    		getAutomate().toFile(pathS);
+	    		break;
 	    	}
 	    	
 	    
@@ -137,6 +151,18 @@ public class Gui extends JPanel {
     		final JFileChooser fc = new JFileChooser();
             fc.showOpenDialog(popupMenu);
             return fc.getSelectedFile().getAbsolutePath();
+	    }
+	    public String locateDossier(){
+	    	JFrame popupMenu = null;
+    		final JFileChooser fc = new JFileChooser();
+    		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fc.showOpenDialog(popupMenu);
+            File selectedDir = fc.getSelectedFile();
+            if ( !selectedDir.isDirectory() ) {
+        		selectedDir = selectedDir.getParentFile();
+        	}
+            //System.out.println(selectedDir.getAbsolutePath());
+            return selectedDir.getAbsolutePath();
 	    }
 	    
 	 }

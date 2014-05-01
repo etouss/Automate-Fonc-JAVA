@@ -27,7 +27,7 @@ public class Generateur {
 		for(int i = 1;i<nombresEtats;i++){
 			int init = Math.abs(rand.nextInt())%10;
 			int term = Math.abs(rand.nextInt())%5;
-			System.out.println(init);
+			//System.out.println(init);
 			if(i!=nombresEtats-1)etatList.add(new Etat(init==0,term==0,i));
 			else etatList.add(new Etat(init==0,true,i));
 		}
