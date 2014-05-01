@@ -1,0 +1,104 @@
+20 Etats
+
+14
+d 15 13
+b 16
+c 14 17 6
+a 3
+
+17 terminal
+d 10 17 3
+c 11
+a 0
+
+15 terminal
+d 9
+b 7 8
+c 7
+a 16
+
+6 initial
+d 2
+b 1 9
+c 6
+a 1
+
+4 terminal
+d 6
+b 12
+c 4
+a 1
+
+18
+d 17
+c 9
+
+19 terminal
+d 1
+b 15
+c 9
+a 11 2 9
+
+8 terminal
+d 13
+a 5
+
+16
+a 10
+
+10 terminal
+d 14 5
+b 11
+c 12 4
+a 18
+
+5
+d 5 0
+b 7
+c 11 12
+a 2 7
+
+2
+d 18
+b 13
+c 14
+
+11
+b 14 15
+c 16
+a 2
+
+0 initial terminal
+
+12
+d 12
+b 2 1
+c 13
+a 2 17
+
+7
+d 11
+c 5
+a 16
+
+1
+d 4
+b 2 18
+c 4
+
+9 terminal
+d 7
+b 9
+c 5
+a 2
+
+13
+d 4 13
+b 0 13
+c 13
+a 18
+
+3
+b 12
+c 15 4
+a 9

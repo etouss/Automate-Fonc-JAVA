@@ -88,7 +88,9 @@ abstract class Arbre{
 					break;
 			}
 		}
-	return pileArbre.pop().simplification(null);	
+		Arbre retour = pileArbre.pop().simplification(null);	
+		System.out.println(retour);
+	return retour;	
 	}
 	/** Creer l'automate associe a l'arbre
      * 

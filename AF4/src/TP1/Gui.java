@@ -37,6 +37,7 @@ public class Gui extends JPanel {
 	
 	public Gui(){
 		setLayout(null);
+		expression.setText("");
 		BoutonListener boutonListener = new BoutonListener();
 		importerAutomate.addActionListener(boutonListener);
 		importerExpression.addActionListener(boutonListener);
@@ -147,9 +148,10 @@ public class Gui extends JPanel {
 	    	case"Sauvegarder":
 	    		String pathS = this.locateDossier();
 	    		Date date = new Date();
-	    		if(getExpression()=="")pathS=pathS.concat("/").concat(String.valueOf(date.getTime())).concat(".automate");
+	    		if(getExpression().equals(""))pathS=pathS.concat("/").concat(String.valueOf(date.getTime())).concat(".automate");
 	    		else pathS=pathS.concat("/").concat(getExpression()).concat(".automate");
 	    		getAutomate().toFile(pathS);
+	    		//System.out.println(pathS);
 	    		break;
 	    	//Determinise l'automate
 	    	case"Determinise":
