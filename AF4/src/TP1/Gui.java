@@ -112,39 +112,46 @@ public class Gui extends JPanel {
 	    public void actionPerformed(ActionEvent e) {
 	    	String bouton = ((JButton)e.getSource()).getText();
 	    	switch(bouton){
+	    	//Ouvre un fichier contenant un automate.
 	    	case"Import Automate":
 	    		String path = this.locateFile();
 	    		setAutomate(new Automate(path));
 	    		setResultat(getAutomate().toString());
 	    		break;
+	    	//Creer un automate depuis l'expression inscrite dans le champs
 	    	case"Import Expression":
 	    		String exp = getExpression();
 	    		setArbre(Arbre.lirePostfixe(exp));
 	    		setAutomate(getArbre().toAutomate());
 	    		setResultat(getAutomate().toString());
 	    		break;
+	    	//Minimise l'automate par moore
 	    	case"Minimiser Automate (Moore)":
 	    		Moore moore = new Moore();
 	    		setAutomate(moore.miniMoore(getAutomate()));
 	    		setResultat(getAutomate().toString());
 	    		break;
+	    	//Minimise un automate depuis l'expression
 	    	case"Minimiser Expression (Residuel)":
 	    		Residuel resi = new Residuel();
 	    		setAutomate(resi.miniResiduel(getArbre()));
 	    		setResultat(getAutomate().toString());
 	    		break;
+	    	//Generer un automate avec les donnee mis dans les champs
 	    	case"Generer":
 	    		Generateur gene = new Generateur(alphabet.getText(),Integer.decode(nbEtat.getText()));
 	    		setAutomate(gene.generer());
 	    		setResultat(getAutomate().toString());
 	    		break;
+	    	//Sauvegarde l'automate dans le dossier choisi.
 	    	case"Sauvegarder":
 	    		String pathS = this.locateDossier();
 	    		Date date = new Date();
-	    		pathS=pathS.concat("/").concat(String.valueOf(date.getTime())).concat(".automate");
-	    		//System.out.print(pathS);
+	    		if(getExpression()=="")pathS=pathS.concat("/").concat(String.valueOf(date.getTime())).concat(".automate");
+	    		else pathS=pathS.concat("/").concat(getExpression()).concat(".automate");
 	    		getAutomate().toFile(pathS);
 	    		break;
+	    	//Determinise l'automate
 	    	case"Determinise":
 	    		setAutomate(getAutomate().determinise());
 	    		setResultat(getAutomate().toString());
@@ -153,7 +160,7 @@ public class Gui extends JPanel {
 	    	
 	    
 	    } 
-	    
+	    //Ouvre un explorateur de fichier.
 	    public String locateFile(){
 	    	JFrame popupMenu = null;
     		final JFileChooser fc = new JFileChooser();

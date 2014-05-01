@@ -60,14 +60,17 @@ public class Interface extends JFrame{
 	    	Automate auto1 = gauche.getAutomate();
 	    	Automate auto2 = droit.getAutomate();
 	    	switch(bouton){
+	    	//Minimise les deux automate et verifie si il sont egaux
 	    	case"Egal ?":
 		    	if(auto1.egaliteAuto(auto2))setResult("Vrai");
 		    	else setResult("Faux");
 	    	break;
+	    	//Verifie legalite de deux automate sans minimisation (permet de compare moore et residuel)
 	    	case"Egal Mini (Moore/Residuel) ?":
 		    	if(auto1.egaliteMini(auto2))setResult("Vrai");
 		    	else setResult("Faux");
 	    	break;
+	    	//Quitte.
 	    	case"Quitter":
 		    	System.exit(0);
 	    	break;

@@ -1,0 +1,52 @@
+12 Etats
+
+1
+c 5
+
+3
+b 1
+c 3
+a 9 7 8
+
+10
+c 2
+a 4
+
+2 terminal
+b 1
+c 3
+a 9 7 8
+
+6
+b 1
+c 3
+a 9 7 8
+
+0 initial terminal
+b 1
+c 3
+a 9 7 8
+
+9
+b 11
+c 6
+
+7
+a 9
+
+5
+b 1
+a 9
+
+11
+b 1
+c 3
+a 9 7 8
+
+4 terminal
+b 1
+c 3
+a 9 7 8
+
+8
+b 10
