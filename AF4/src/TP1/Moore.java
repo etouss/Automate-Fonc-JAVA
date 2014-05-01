@@ -87,7 +87,14 @@ public class Moore {
 		}
 		
 		boolean test = true;
-		
+		/*for(i=0;i<etatsTypeList.length;i++){
+			System.out.print(etatsList[i].getId()+"|"+etatsTypeList[i]+"|");
+			for(int j= 0;j<lettresList.length;j++){
+				System.out.print(moore[i][j]+":");
+			}
+			System.out.println();
+		}
+		System.out.println("--------------------------");*/
 		for(i=0;i<etatsTypeList.length;i++)test = test && etatsTypeList2[i]==etatsTypeList[i];
 		if(!test){
 			etatsTypeList = etatsTypeList2;

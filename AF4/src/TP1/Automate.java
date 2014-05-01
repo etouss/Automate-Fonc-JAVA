@@ -18,7 +18,6 @@ public class Automate extends EnsEtat {
         super();
         initiaux = new EnsEtat();
     }
-    
     public String toString() {
         String s = "" + this.size() + " Etats\n";
         s+=super.toString();
@@ -79,7 +78,11 @@ public class Automate extends EnsEtat {
     	return this.initiaux.accepte(s, 0);
     }
     
-    
+    /** Determinise l'automate.
+     * 
+     * @return 
+     * 			L'automate deterministe
+     */
     public Automate determinise() {
         if (this.estDeterministe()) {
             return this.copie();
@@ -109,7 +112,11 @@ public class Automate extends EnsEtat {
         }
         return deterministe;
     }
-    
+    /** Creer une copie de l'automate.
+     * 
+     * @return 
+     * 			Une copie de l'automate
+     */
     public Automate copie() {
         Automate auto = new Automate();
         HashSet<Etat> set = new HashSet<Etat>();
@@ -137,7 +144,11 @@ public class Automate extends EnsEtat {
         }
         return auto;
     }
-    
+    /** Complete l'automate.
+     * 
+     * @return 
+     * 			Une copie de l'automate complet
+     */
     public Automate complete() {
         Automate auto = this.copie();
         Etat pb = new Etat(false, false, -1);
@@ -151,7 +162,11 @@ public class Automate extends EnsEtat {
         }
         return auto;
     }
-    
+    /** Calcul le complementaire.
+     * 
+     * @return 
+     * 			L'automate complemenaire
+     */
     public Automate complementaire() {
         Automate auto = this.complete().determinise();
         for (Etat e : auto) {
@@ -159,7 +174,11 @@ public class Automate extends EnsEtat {
         }
         return auto;
     }
-    
+    /** Calcul le miroir.
+     * 
+     * @return 
+     * 			L'automate miroir
+     */
     public Automate miroir() {
         Automate auto = new Automate();
         //HashSet<Etat> set = new HashSet<Etat>();
@@ -178,7 +197,11 @@ public class Automate extends EnsEtat {
         }
         return auto;
     }   
-    
+    /** Calcul l'union.
+     * 
+     * @return 
+     * 			L'Union de deux Automates
+     */
     public Automate union(Automate a) {
         Automate cp = this.determinise();
         Automate cp2 = a.determinise();
@@ -193,11 +216,19 @@ public class Automate extends EnsEtat {
         }
         return union.determinise();
     }
-    
+    /** Calcul l'intersection.
+     * 
+     * @return 
+     * 			L'Intersection de deux Automates
+     */
     public Automate intersection(Automate a) {
         return this.complementaire().union(a.complementaire()).complementaire();
     }
-    
+    /** Enregistre l'automate au format standard
+     * 
+     * @param path 
+     * 			Le chemin absolue vers le fichier d'enregistrement
+     */
     public void toFile(String path) {
         File f = new File(path);
         try {
@@ -209,7 +240,13 @@ public class Automate extends EnsEtat {
         }
     }
     
-    
+    /** Ouvre l'automate au format standard
+     * 
+     * @param path 
+     * 			Le chemin absolue vers le fichier d'ouverture
+     * @return 
+     * 			L'automate decrit dans le fichier
+     */
     public Automate(String path) {
         super();
         initiaux = new EnsEtat();
@@ -231,7 +268,7 @@ public class Automate extends EnsEtat {
             String str = sc.nextLine();
             String[] nombre = str.split(" ",2);
             int NumeroEtat = Integer.parseInt(nombre[0]);
-            System.out.println(NumeroEtat);
+            //System.out.println(NumeroEtat);
             Etat e = set.get(NumeroEtat);
             if (e == null) set.put(NumeroEtat,new Etat(NumeroEtat));
             if(str.contains("initial"))set.get(NumeroEtat).setInit(true);
@@ -247,12 +284,16 @@ public class Automate extends EnsEtat {
                 }
             }
         }
-        System.out.println("azetyh");
+        //System.out.println("azetyh");
         for(Etat e : set.values()){
             this.ajouteEtatSeul(e);
         }
     }
-    
+    /** Supprime la poubelle
+     * 
+     * @return 
+     * 			L'automate sans poubelle
+     */
     public Automate suppressPoubelle(){
     	Automate cpy = this.copie();
     	Etat etatBin = null;
@@ -281,7 +322,13 @@ public class Automate extends EnsEtat {
     	}
     	return cpy;
     }
-    
+    /** Verifie si deux automate decrivent le meme language
+     * 
+     * @param auto 
+     * 			L'automate a compare
+     * @return 
+     * 			True si les deux automates sont isomorphe False sinon.
+     */
     public boolean egaliteAuto(Automate auto){
     	Moore moore1 = new Moore();
     	Moore moore2 = new Moore();
@@ -290,7 +337,19 @@ public class Automate extends EnsEtat {
     	
     	return auto1.egaliteMini(auto2);
     }
-    
+    /** Retourne une String decrivant les actions possible a partir d'un etat
+     * 
+     * @param lettresList 
+     * 			List de contenant l'alphabet de l'automate
+     * @param etatsParcourus
+     * 			Ensemble contenant les etats deja parcourus
+     * @param etat
+     * 			Etat en cours de parcours
+     * @param result
+     * 			Description des action possibles precedante.
+     * @return 
+     * 			La string decrivant les action possible jusqu'ici.
+     */
     private String parcoursRecursif(Character[] lettresList,HashSet<Etat> etatsParcourus,Etat etat,String result){
     	for(Character c:lettresList){
     		Etat etatSuivant = new Etat();
@@ -308,7 +367,11 @@ public class Automate extends EnsEtat {
     	
     	return result;
     }
-    
+    /** Parcours l'automate
+     * 
+     * @return 
+     * 			Une String unique decrivant l'automate.
+     */
     public String parcours(){
     	HashSet<Character> lettres = new HashSet<Character>();
     	HashSet<Etat> etatsParcourus = new HashSet<Etat>(); 
@@ -323,7 +386,13 @@ public class Automate extends EnsEtat {
     	//System.out.println(result);
     	return result;
     }
-
+    /** Verifie si deux automate minimaux decrivent le meme language
+     * 
+     * @param auto 
+     * 			L'automate a compare
+     * @return 
+     * 			True si les deux automates sont isomorphe False sinon.
+     */
 	public boolean egaliteMini(Automate auto) {
 		String result1 = this.parcours();
 		String result2 = auto.parcours();

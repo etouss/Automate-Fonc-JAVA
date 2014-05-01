@@ -26,9 +26,20 @@ class Unaire extends Arbre{
         }
         return succ;
     }
-
+    /** Calcul le residuel d'un Unaire.
+     * 
+     * @param language 
+     * 			L'arbre de base
+     * @param c
+     * 			Le char par rapport auquel on calcul le residuel
+     * @return 
+     * 			L'arbre decrivant le residuel du language
+     */
 	@Override
 	Arbre residuel(char c,Arbre language) {
+		/*
+		 * Applique les regle de calcul des residuel sur les Unaire.
+		 */
 		if((fils.residuel(c,language).toString().equals(fils.toString())))
 			return this.simplification(language);
 		else if(fils.residuel(c,language).contientMotVide)
@@ -36,8 +47,15 @@ class Unaire extends Arbre{
 		else 
 			return new Binaire(fils.residuel(c,language),this,'.').simplification(language); 
 	}
-	
+	/** Simplifie les Unaire.
+     * 
+     * @param language 
+     * 			L'arbre de base
+     * @return 
+     * 			L'arbre simplifie
+     */
 	Arbre simplification(Arbre language){
+		// a** = a*
 		if(fils.symbole == '*')return fils.simplification(language);
 		else if(fils.symbole == '+'){
 			if(fils.gauche.symbole=='*'){

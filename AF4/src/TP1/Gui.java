@@ -30,6 +30,7 @@ public class Gui extends JPanel {
 	private JTextField alphabet = new JTextField();
 	
 	private JButton sauver = new JButton("Sauvegarder");
+	private JButton determinise = new JButton("Determinise");
 	
 	private Automate automate;
 	private Arbre arbre;
@@ -43,6 +44,7 @@ public class Gui extends JPanel {
 		minimiserResiduel.addActionListener(boutonListener);
 		generer.addActionListener(boutonListener);
 		sauver.addActionListener(boutonListener);
+		determinise.addActionListener(boutonListener);
 		
 		resultat.setSize(400, 600);
 		resultat.setMargin(new Insets(10,10,10,10) );
@@ -60,6 +62,7 @@ public class Gui extends JPanel {
         add(nbEtat);
         add(alphabet);
         add(sauver);
+        add(determinise);
         
         alphabet.setText("alphabet");
         nbEtat.setText("Nombre Etats");
@@ -69,10 +72,11 @@ public class Gui extends JPanel {
         expression.setBounds(0, 130, 200, 50);
         minimiserMoore.setBounds(0, 190, 200, 50);
         minimiserResiduel.setBounds(0, 250, 200, 50);
-        generer.setBounds(0, 340, 200, 50);
-        nbEtat.setBounds(0,400,95,50);
-        alphabet.setBounds(105,400,95,50);
-        sauver.setBounds(0,490,200,50);
+        determinise.setBounds(0,310, 200, 50);
+        generer.setBounds(0, 370, 200, 50);
+        nbEtat.setBounds(0,430,95,50);
+        alphabet.setBounds(105,430,95,50);
+        sauver.setBounds(0,520,200,50);
 	}
 
 	
@@ -140,6 +144,10 @@ public class Gui extends JPanel {
 	    		pathS=pathS.concat("/").concat(String.valueOf(date.getTime())).concat(".automate");
 	    		//System.out.print(pathS);
 	    		getAutomate().toFile(pathS);
+	    		break;
+	    	case"Determinise":
+	    		setAutomate(getAutomate().determinise());
+	    		setResultat(getAutomate().toString());
 	    		break;
 	    	}
 	    	

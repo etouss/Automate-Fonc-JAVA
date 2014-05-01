@@ -44,25 +44,36 @@ class Binaire extends Arbre{
 	 }
 
 	@Override
-	Arbre residuel(char c,Arbre language) {
+	/** Calcul le residuel d'un Binaire.
+     * 
+     * @param language 
+     * 			L'expression ecrit au format postfixe du language
+     * @param c
+     * 			Le char par rapport auquel on calcul le residuel
+     * @return 
+     * 			L'arbre decrivant le residuel du language
+     */
+	public Arbre residuel(char c,Arbre language) {
 		Arbre arbre = new Feuille('0');
 		if(this.symbole=='.'){
+			//Applique les condition de calcul sur la concatenation.
 			Arbre arbre1 = new Binaire(gauche.residuel(c,language),droit,'.');
-			//System.out.println(arbre+":"+new Binaire(gauche.residuel(c),droit,'.').simplification());
 			if(gauche.contientMotVide||gauche.contient1){
 				arbre1= new Binaire(arbre1.simplification(language),droit.residuel(c,language),'+');
 			}
-			//System.out.println(arbre1);
 			return arbre1.simplification(language);
 		}
+		//Applique les condition de calcul sur l'union.
 		else if(this.symbole=='+'){
-			//System.out.println(this+"//"+c+":"+new Binaire(gauche.residuel(c,language),droit.residuel(c,language),'+'));
 			return new Binaire(gauche.residuel(c,language),droit.residuel(c,language),'+').simplification(language);
 		}
 		return arbre;
 	}
-	
-
+	/** Calcul les sous arbre contenu dans un Binaire.
+     * 
+     * @return 
+     * 			Ensemble des sous arbre de l'objet.
+     */
 	@Override
 	public HashSet<String> contientArbre() {
 		HashSet<String> set = new HashSet<String>();
@@ -75,8 +86,21 @@ class Binaire extends Arbre{
 		return set;
 	}
 
+	/** Tente de simplifier l'arbre de facon a trouver des homomorphie.
+     * 
+     * @param language
+     * 			Le language par rapport au quelle on calcul les residuel.
+     * @return 
+     * 			Arbre simplifie
+     */
 	@Override
-	Arbre simplification(Arbre language) {
+	public Arbre simplification(Arbre language) {
+		/*
+		 * Quelques conditions d'equivalence d'arbre pour les union:
+		 * Vide + Arbre = Arbre
+		 * Suppresion des mot vide pour evite l'ecriture de transitions epsilon dans l'automate.
+		 * Arbre1<Arbre2  et Arbre1+Arbre2 = Arbre 2
+		 */
 		if(this.symbole=='+'){
 			if(gauche.symbole == '0' && droit.symbole == '0') return new Feuille('0');
 			else if(gauche.symbole == '0')return droit.simplification(language);
@@ -96,6 +120,11 @@ class Binaire extends Arbre{
 				if(gauche.toString().matches(S))return droit.simplification(language);
 			}
 		}
+		/*
+		 * Quelques conditions d'equivalence d'arbre pour les union:
+		 * Vide . Arbre = vide
+		 * MotVide . Arbre = Arbre
+		 */
 		else if(this.symbole=='.'){
 			if(gauche.symbole == '0' || droit.symbole == '0')return new Feuille('0');
 			else if(gauche.symbole == '1') return droit.simplification(language);
@@ -109,6 +138,7 @@ class Binaire extends Arbre{
 				if(!droit.contientMotVide)return new Binaire(this,gauche,'+').simplification(language);
 			}
 		}
+		//Simplification d'un arbre par rapport a son language initial.
 		if(language != null){
 			if(this.symbole == '+'){
 				if(this.gauche.toString().equals(language.toString()))return gauche;

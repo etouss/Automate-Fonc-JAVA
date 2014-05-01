@@ -25,7 +25,16 @@ class Feuille extends Arbre{
         succ.put(this, new HashSet<Feuille>());
         return succ;
 	}
-
+	
+	/** Calcul le residuel d'un Binaire.
+     * 
+     * @param language 
+     * 			L'arbre de base
+     * @param c
+     * 			Le char par rapport auquel on calcul le residuel
+     * @return 
+     * 			L'arbre decrivant le residuel du language
+     */
 	@Override
 	Arbre residuel(char c,Arbre language) {
 		return c == this.symbole ? new Feuille('1'):new Feuille('0');
