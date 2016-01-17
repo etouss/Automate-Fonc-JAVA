@@ -1,0 +1,43 @@
+10 Etats
+
+2
+c 6
+
+5
+b 7
+c 5 1
+a 3 4
+
+6 terminal
+b 7
+c 1
+a 2 3 4
+
+9
+c 8
+
+7
+b 7
+c 5 1
+a 3 4
+
+1
+b 9
+
+8
+b 7
+c 1
+a 2 3 4
+
+3
+b 9
+
+4
+b 7
+c 1
+a 3 4
+
+0 initial terminal
+b 7
+c 1
+a 2 3 4
